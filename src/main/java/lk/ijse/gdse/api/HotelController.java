@@ -11,7 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/hotel")
+@RequestMapping("/api/v1/hotel")
 public class HotelController {
     private final HotelService hotelService;
 
@@ -22,7 +22,8 @@ public class HotelController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json",produces = "application/json")
     HotelDTO saveHotel(@Valid @RequestBody HotelDTO hotelDTO, Errors errors){
-        return null;
+
+        return hotelService.saveHotel(hotelDTO);
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<HotelDTO> getVehicle(@Valid @PathVariable String hotel_id){
