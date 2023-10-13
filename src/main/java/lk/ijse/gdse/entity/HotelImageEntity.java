@@ -16,13 +16,13 @@ public class HotelImageEntity implements SuperEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int image_id;
-    @Column(nullable = false )
+    @Column(nullable = false ,columnDefinition = "Text")
     @Lob
     private String front_image;
-    @Column(nullable = false )
+    @Column(nullable = false ,columnDefinition = "Text" )
     @Lob
     private String back_image;
-    @Column(nullable = false )
+    @Column(nullable = false ,columnDefinition = "Text")
     @Lob
     private String inside_image;
     @ManyToOne

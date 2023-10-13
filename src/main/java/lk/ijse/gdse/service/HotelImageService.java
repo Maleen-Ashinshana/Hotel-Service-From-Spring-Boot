@@ -4,8 +4,8 @@ import lk.ijse.gdse.dto.HotelImageDTO;
 
 
 public interface HotelImageService {
-    HotelImageDTO saveHotel(HotelImageDTO imageDTO);
-    HotelImageDTO getSelectedHotel(String image_id);
-    void updateHotel(HotelImageDTO imageDTO);
-    void deleteHotel(String image_id);
+    HotelImageDTO saveImage(HotelImageDTO imageDTO);
+    HotelImageDTO getSelectedHotelImage(String image_id);
+    void updateHotelImage(HotelImageDTO imageDTO);
+    void deleteHotelImage(String image_id);
 }
