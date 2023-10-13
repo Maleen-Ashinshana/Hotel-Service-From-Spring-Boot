@@ -22,6 +22,7 @@ public class HotelImageController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json",produces = "application/json")
     HotelImageDTO saveHotelImage(@Valid @RequestBody  HotelImageDTO imageDTO, Errors errors){
+
         return null;
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/hotel")
+@CrossOrigin("*")
 public class HotelController {
     private final HotelService hotelService;
 
@@ -25,18 +26,21 @@ public class HotelController {
 
         return hotelService.saveHotel(hotelDTO);
     }
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<HotelDTO> getVehicle(@Valid @PathVariable String hotel_id){
-        return null;
+    @GetMapping(/*value = "{code:[A-Fa-f0-9\\-]{36}}",produces = MediaType.APPLICATION_JSON_VALUE*/)
+    /*@GetMapping("example/hotel_id")*/
+    ResponseEntity<HotelDTO> getHotel(@Valid @RequestParam String hotel_id){
+        HotelDTO hotelDTO=hotelService.getSelectedHotel(hotel_id);
+        return  hotelDTO!=null?ResponseEntity.ok(hotelDTO):ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping()
-    void deleteHotel(@Valid @PathVariable String hotel_id,@RequestBody HotelDTO hotelDTO,Errors errors){
-
+    void deleteHotel(@Valid @RequestParam String hotel_id){
+     hotelService.deleteHotel(hotel_id);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping()
-    void updateHotel(@Valid @PathVariable String hotel_id,@RequestBody HotelDTO hotelDTO,Errors errors){
-
+    void updateHotel(@Valid @RequestParam String hotel_id,/*@RequestBody*/ HotelDTO hotelDTO,Errors errors){
+        hotelDTO.setHotel_id(hotel_id);
+        hotelService.updateHotel(hotelDTO);
     }
 }
