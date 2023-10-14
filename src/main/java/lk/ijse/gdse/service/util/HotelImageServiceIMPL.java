@@ -10,8 +10,9 @@ import lk.ijse.gdse.service.HotelImageService;
 import lk.ijse.gdse.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class HotelImageServiceIMPL implements HotelImageService {
 
     @Override
     public HotelImageDTO getSelectedHotelImage(String image_id) {
-        return convert.toHotelImageDTO(hotelImageRepo.getReferenceById(image_id));
+        return convert.toHotelImageDTO(hotelImageRepo.findById(image_id).get());
     }
 
     @Override

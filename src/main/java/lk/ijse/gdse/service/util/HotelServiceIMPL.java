@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.Optional;
 
 @Service
@@ -22,13 +23,17 @@ public class HotelServiceIMPL implements HotelService {
 
     @Override
     public HotelDTO saveHotel(HotelDTO hotelDTO) {
-        return convert.toHotelDTO(hotelRepo.save(convert.toHotelEntity(hotelDTO)));
+        HotelEntity empEntity = convert.toHotelEntity(hotelDTO);
+        hotelRepo.save(empEntity);
+        return employeeDTO;
+        //HotelEntity hotelEntity=convert.toHotelImageEntity(hotelDTO);
+        //HotelDTO hotelDTO1=convert.toHotelImageEntity(hotelDTO);
+        //return convert.toHotelDTO(hotelRepo.(convert.toHotelEntity(hotelDTO)));
     }
 
     @Override
     public HotelDTO getSelectedHotel(String hotel_id) {
-
-        return convert.toHotelDTO(hotelRepo.getReferenceById(hotel_id));
+        return convert.toHotelDTO(hotelRepo.(hotel_id).get());
     }
 
     @Override

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/hotel")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class HotelController {
     private final HotelService hotelService;
 
@@ -22,7 +22,7 @@ public class HotelController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json",produces = "application/json")
-    HotelDTO saveHotel(@Valid @RequestBody HotelDTO hotelDTO, Errors errors){
+    HotelDTO saveHotel(@Valid @RequestBody HotelDTO hotelDTO){
 
         return hotelService.saveHotel(hotelDTO);
     }
