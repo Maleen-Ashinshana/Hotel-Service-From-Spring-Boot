@@ -14,22 +14,23 @@ import lombok.ToString;
 @Table(name = "hotelImage")
 public class HotelImageEntity implements SuperEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int image_id;
-    @Column(nullable = false ,columnDefinition = "Text")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String image_id;
+    @Column(nullable = false ,columnDefinition = "LONGTEXT")
     @Lob
     private String front_image;
-    @Column(nullable = false ,columnDefinition = "Text" )
+    @Column(nullable = false ,columnDefinition = "LONGTEXT" )
     @Lob
     private String back_image;
-    @Column(nullable = false ,columnDefinition = "Text")
+    @Column(nullable = false ,columnDefinition = "LONGTEXT")
     @Lob
     private String inside_image;
     @ManyToOne
     @JoinColumn(name = "hotel_id",referencedColumnName = "hotel_id")
+
     private HotelEntity hotelEntity;
 
-    public HotelImageEntity(int image_id, String front_image, String back_image, String inside_image) {
+    public HotelImageEntity(String image_id, String front_image, String back_image, String inside_image) {
         this.image_id = image_id;
         this.front_image = front_image;
         this.back_image = back_image;

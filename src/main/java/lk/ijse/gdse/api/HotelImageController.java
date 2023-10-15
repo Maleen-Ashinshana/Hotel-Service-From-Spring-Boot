@@ -29,28 +29,29 @@ public class HotelImageController {
         this.hotelImageService = vehicleImageService;
 
     }
+
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    HotelImageDTO saveHotelImage(
-           /* @RequestParam HotelImageDTO imageDTO,*/
+    @PostMapping(value = "/{hotel_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String saveHotelImage(
+            /* @RequestParam HotelImageDTO imageDTO,*/
             @RequestPart byte[] front,
             @RequestPart byte[] back,
             @RequestPart byte[] inside,
-            @RequestPart HotelEntity hotel_id
-    ){
 
-            String frontImg= Base64.getEncoder().encodeToString(front);
-            String insideImg= Base64.getEncoder().encodeToString(inside);
-            String backImg= Base64.getEncoder().encodeToString(back);
+            @PathVariable String hotel_id) {
 
-            HotelImageDTO imageDTO1=new HotelImageDTO();
+        String frontImg = Base64.getEncoder().encodeToString(front);
+        String insideImg = Base64.getEncoder().encodeToString(inside);
+        String backImg = Base64.getEncoder().encodeToString(back);
+
+        HotelImageDTO imageDTO1 = new HotelImageDTO();
 //            imageDTO1.setHotelEntity(imageDTO);
-            imageDTO1.setFront_image(frontImg);
-            imageDTO1.setInside_image(insideImg);
-            imageDTO1.setBack_image(backImg);
-            imageDTO1.setHotelEntity(hotel_id);
+        imageDTO1.setFront_image(frontImg);
+        imageDTO1.setInside_image(insideImg);
+        imageDTO1.setBack_image(backImg);
+//            imageDTO1.setHotelEntity(hotel_id);
 
-            return hotelImageService.saveImage(imageDTO1);
+        return hotelImageService.saveImage(hotel_id, imageDTO1).getImage_id();
 
     }
 
@@ -103,7 +104,7 @@ public class HotelImageController {
             @RequestPart List<MultipartFile> inside_image,
             @RequestPart List<MultipartFile> back_image*/
 
-        /*imageDTO.set*/
+    /*imageDTO.set*/
         /*String front = Base64.getEncoder().encodeToString(front_image);
         String inside = Base64.getEncoder().encodeToString(inside_image);
         String back = Base64.getEncoder().encodeToString(back_image);*/
@@ -116,41 +117,41 @@ public class HotelImageController {
         hotelImageDTO.setInside_image(inside);*/
 
 
+    /*    HotelImageDTO saveHotelImage(
+                @RequestPart byte[] front_image,
+                @RequestPart byte[] back_image,
+            @RequestPart byte[] inside_image,
+                @RequestPart String hotel_id){
+
+            String front = Base64.getEncoder().encodeToString(front_image);
+            String inside = Base64.getEncoder().encodeToString(inside_image);
+            String back = Base64.getEncoder().encodeToString(back_image);
+
+            HotelImageDTO imageDTO=new HotelImageDTO();
+
+            imageDTO.setFront_image(Arrays.toString(new String[]{front}));
+            imageDTO.setInside_image(Arrays.toString(new String[]{inside}));
+            imageDTO.setBack_image(Arrays.toString(new String[]{back}));
 
 
-/*    HotelImageDTO saveHotelImage(
-            @RequestPart byte[] front_image,
-            @RequestPart byte[] back_image,
-        @RequestPart byte[] inside_image,
-            @RequestPart String hotel_id){
-
-        String front = Base64.getEncoder().encodeToString(front_image);
-        String inside = Base64.getEncoder().encodeToString(inside_image);
-        String back = Base64.getEncoder().encodeToString(back_image);
-
-        HotelImageDTO imageDTO=new HotelImageDTO();
-
-        imageDTO.setFront_image(Arrays.toString(new String[]{front}));
-        imageDTO.setInside_image(Arrays.toString(new String[]{inside}));
-        imageDTO.setBack_image(Arrays.toString(new String[]{back}));
-
-
-        return hotelImageService.saveImage(imageDTO);
-    }*/
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<HotelImageDTO> getHotel(@Valid @RequestParam String image_id){
-        HotelImageDTO hotelImageDTO=hotelImageService.getSelectedHotelImage(image_id);
-        return hotelImageDTO!=null?ResponseEntity.ok(hotelImageDTO):ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return hotelImageService.saveImage(imageDTO);
+        }*/
+    @GetMapping(value = "{image_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<HotelImageDTO> getHotel(@Valid @PathVariable String image_id) {
+        HotelImageDTO hotelImageDTO = hotelImageService.getSelectedHotelImage(image_id);
+        return new ResponseEntity<>(hotelImageDTO, HttpStatus.OK);
     }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping()
-    void deleteHotelImage(@Valid @RequestParam String image_id,@RequestBody  HotelImageDTO imageDTO,Errors errors){
+    @DeleteMapping("{image_id}")
+    void deleteHotelImage(@Valid @PathVariable String image_id) {
         hotelImageService.deleteHotelImage(image_id);
     }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping()
-    void updateHotelImage(@Valid @RequestParam String image_id,@RequestBody HotelImageDTO imageDTO,Errors errors){
-      imageDTO.setImage_id(Integer.parseInt(image_id));
-      hotelImageService.updateHotelImage(imageDTO);
+    @PatchMapping("{image_id}")
+    void updateHotelImage(@Valid @PathVariable String image_id, @RequestBody HotelImageDTO imageDTO, Errors errors) {
+        imageDTO.setImage_id(image_id);
+        hotelImageService.updateHotelImage(imageDTO);
     }
 }
