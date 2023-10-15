@@ -23,23 +23,21 @@ public class HotelController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json",produces = "application/json")
     HotelDTO saveHotel(@Valid @RequestBody HotelDTO hotelDTO){
-
         return hotelService.saveHotel(hotelDTO);
     }
-    @GetMapping(/*value = "{code:[A-Fa-f0-9\\-]{36}}",produces = MediaType.APPLICATION_JSON_VALUE*/)
-    /*@GetMapping("example/hotel_id")*/
-    ResponseEntity<HotelDTO> getHotel(@Valid @RequestParam String hotel_id){
+    @GetMapping("{hotel_id}")
+    ResponseEntity<HotelDTO> getHotel(@Valid @PathVariable String hotel_id){
         HotelDTO hotelDTO=hotelService.getSelectedHotel(hotel_id);
         return  hotelDTO!=null?ResponseEntity.ok(hotelDTO):ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping()
-    void deleteHotel(@Valid @RequestParam String hotel_id){
+    @DeleteMapping("{hotel_id}")
+    void deleteHotel(@Valid @PathVariable String hotel_id){
      hotelService.deleteHotel(hotel_id);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping()
-    void updateHotel(@Valid @RequestParam String hotel_id,/*@RequestBody*/ HotelDTO hotelDTO,Errors errors){
+    @PatchMapping("{hotel_id}")
+    void updateHotel(@Valid @PathVariable String hotel_id,/*@RequestBody*/ HotelDTO hotelDTO,Errors errors){
         hotelDTO.setHotel_id(hotel_id);
         hotelService.updateHotel(hotelDTO);
     }

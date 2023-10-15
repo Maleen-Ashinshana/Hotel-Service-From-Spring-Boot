@@ -23,9 +23,7 @@ public class HotelServiceIMPL implements HotelService {
 
     @Override
     public HotelDTO saveHotel(HotelDTO hotelDTO) {
-        HotelEntity empEntity = convert.toHotelEntity(hotelDTO);
-        hotelRepo.save(empEntity);
-        return employeeDTO;
+        return convert.toHotelDTO(hotelRepo.save(convert.toHotelEntity(hotelDTO)));
         //HotelEntity hotelEntity=convert.toHotelImageEntity(hotelDTO);
         //HotelDTO hotelDTO1=convert.toHotelImageEntity(hotelDTO);
         //return convert.toHotelDTO(hotelRepo.(convert.toHotelEntity(hotelDTO)));
@@ -33,7 +31,7 @@ public class HotelServiceIMPL implements HotelService {
 
     @Override
     public HotelDTO getSelectedHotel(String hotel_id) {
-        return convert.toHotelDTO(hotelRepo.(hotel_id).get());
+        return convert.toHotelDTO(hotelRepo.findById(hotel_id).get());
     }
 
     @Override
