@@ -55,20 +55,21 @@ public class HotelImageController {
             return hotelImageService.saveImage(hotel_id,imageDTO1).getImage_id();
 
     }
-    @GetMapping(value = "{image_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{image_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<HotelImageDTO> getHotel(@Valid @PathVariable String image_id){
         HotelImageDTO hotelImageDTO=hotelImageService.getSelectedHotelImage(image_id);
         return new ResponseEntity<>(hotelImageDTO,HttpStatus.OK);
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{image_id}")
+
+    @DeleteMapping("/{image_id}")
     void deleteHotelImage(@Valid @PathVariable String image_id){
         hotelImageService.deleteHotelImage(image_id);
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("{image_id}")
-    void updateHotelImage(@Valid @PathVariable String image_id,@RequestBody HotelImageDTO imageDTO,Errors errors){
-      imageDTO.setImage_id(image_id);
-      hotelImageService.updateHotelImage(imageDTO);
+
+    @PatchMapping("/{image_id}")
+    void updateHotelImage(@Valid @PathVariable String image_id,@RequestBody HotelImageDTO imageDTO){
+     hotelImageService.updateHotelImage(image_id,imageDTO);
+        /* imageDTO.setImage_id(image_id);
+      hotelImageService.updateHotelImage(imageDTO);*/
     }
 }

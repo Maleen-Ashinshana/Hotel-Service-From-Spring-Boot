@@ -28,7 +28,7 @@ public class HotelController {
     @GetMapping("/{hotel_id}")
     ResponseEntity<HotelDTO> getHotel(@Valid @PathVariable String hotel_id){
         HotelDTO hotelDTO=hotelService.getSelectedHotel(hotel_id);
-        return  hotelDTO!=null?ResponseEntity.ok(hotelDTO):ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return  new ResponseEntity<>(hotelDTO,HttpStatus.OK);
     }
 
     @DeleteMapping("/{hotel_id}")
