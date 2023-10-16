@@ -67,9 +67,23 @@ public class HotelImageController {
     }
 
     @PatchMapping("/{image_id}")
-    void updateHotelImage(@Valid @PathVariable String image_id,@RequestBody HotelImageDTO imageDTO){
-     hotelImageService.updateHotelImage(image_id,imageDTO);
-        /* imageDTO.setImage_id(image_id);
-      hotelImageService.updateHotelImage(imageDTO);*/
+    public String updateHotelImage(
+            @RequestPart byte[] front,
+            @RequestPart byte[] back,
+            @RequestPart byte[] inside,
+
+            @PathVariable String image_id){
+        String frontImg= Base64.getEncoder().encodeToString(front);
+        String insideImg= Base64.getEncoder().encodeToString(inside);
+        String backImg= Base64.getEncoder().encodeToString(back);
+
+        HotelImageDTO imageDTO1=new HotelImageDTO();
+//            imageDTO1.setHotelEntity(imageDTO);
+        imageDTO1.setFront_image(frontImg);
+        imageDTO1.setInside_image(insideImg);
+        imageDTO1.setBack_image(backImg);
+
+        hotelImageService.updateHotelImage(image_id,imageDTO1);
+        return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
     }
 }

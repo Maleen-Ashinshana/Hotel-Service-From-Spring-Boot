@@ -1,5 +1,6 @@
 package lk.ijse.gdse.dto;
 
+import jakarta.validation.constraints.Null;
 import lk.ijse.gdse.entity.HotelEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class HotelImageDTO {
+    @Null(message = "Hotel ID will auto generate")
     private String image_id;
     private String front_image;
     private String back_image;
