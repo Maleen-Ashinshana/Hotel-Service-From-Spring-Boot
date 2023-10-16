@@ -7,6 +7,7 @@ import lk.ijse.gdse.exception.NotFoundException;
 import lk.ijse.gdse.repo.HotelRepo;
 import lk.ijse.gdse.service.HotelService;
 import lk.ijse.gdse.util.Converter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +17,12 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class HotelServiceIMPL implements HotelService {
-    @Autowired
-    private Converter convert;
-    @Autowired
-    private HotelRepo hotelRepo;
+
+    private final Converter convert;
+
+    private final HotelRepo hotelRepo;
 
     @Override
     public HotelDTO saveHotel(HotelDTO hotelDTO) {

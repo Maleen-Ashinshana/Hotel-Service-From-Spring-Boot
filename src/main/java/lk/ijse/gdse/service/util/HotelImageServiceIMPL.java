@@ -64,13 +64,14 @@ public class HotelImageServiceIMPL implements HotelImageService {
        hotelImageEntity.setFront_image(imageDTO.getFront_image());
        hotelImageEntity.setInside_image(imageDTO.getInside_image());
        hotelImageEntity.setBack_image(imageDTO.getBack_image());
+       hotelImageRepo.save(hotelImageEntity);
     }
 
     @Override
     public void deleteHotelImage(String image_id) {
         Optional<HotelImageEntity> byId = hotelImageRepo.findById(image_id);
         if (!byId.isPresent()){
-            throw new NotFoundException("Hotel Image ID :" + image_id+ " Not Found");
+            throw new NotFoundException("Hotel ID :" + image_id+ " Not Found");
         }
         hotelImageRepo.deleteById(image_id);
     }
