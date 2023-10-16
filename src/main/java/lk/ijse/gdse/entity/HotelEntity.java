@@ -23,6 +23,7 @@ public class HotelEntity implements SuperEntity{
     @Column(nullable = false)
     private  String location;
     @Column(nullable = false)
+
     private  String email;
     @Column(nullable = false)
     private  int contact_number;
