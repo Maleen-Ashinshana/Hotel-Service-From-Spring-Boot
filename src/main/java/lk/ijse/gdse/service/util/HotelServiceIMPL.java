@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -78,5 +80,10 @@ public class HotelServiceIMPL implements HotelService {
         }
         hotelRepo.deleteById(hotel_id);
 
+    }
+
+    @Override
+    public List<HotelDTO> gelAllHotels() {
+        return hotelRepo.findAll().stream().map(hotel->convert.toHotelDTO(hotel)).collect(Collectors.toList());
     }
 }

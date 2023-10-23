@@ -86,4 +86,9 @@ public class HotelImageController {
         hotelImageService.updateHotelImage(image_id,imageDTO1);
         return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
     }
+    @GetMapping
+    public ResponseEntity<List<HotelImageDTO>> getAllHotelImage() {
+        List<HotelImageDTO> dto = hotelImageService.gelAllHotelIamges();
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
 }

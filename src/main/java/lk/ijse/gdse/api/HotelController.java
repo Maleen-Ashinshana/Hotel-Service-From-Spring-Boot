@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/hotel")
 //@CrossOrigin("*")
@@ -42,5 +44,10 @@ public class HotelController {
 
 //        hotelDTO.setHotel_id(hotel_id,hotelDTO);
 //        hotelService.updateHotel(hotel_id,hotelDTO);
+    }
+    @GetMapping
+    public ResponseEntity<List<HotelDTO>> getAllHotels() {
+        List<HotelDTO> dto = hotelService.gelAllHotels();
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

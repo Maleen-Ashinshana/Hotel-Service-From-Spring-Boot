@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -74,5 +76,10 @@ public class HotelImageServiceIMPL implements HotelImageService {
             throw new NotFoundException("Hotel ID :" + image_id+ " Not Found");
         }
         hotelImageRepo.deleteById(image_id);
+    }
+
+    @Override
+    public List<HotelImageDTO> gelAllHotelIamges() {
+        return hotelImageRepo.findAll().stream().map(hotelImage->convert.toHotelImageDTO(hotelImage)).collect(Collectors.toList());
     }
 }
