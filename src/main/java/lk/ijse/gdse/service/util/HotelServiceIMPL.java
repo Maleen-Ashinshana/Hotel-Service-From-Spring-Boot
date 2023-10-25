@@ -59,7 +59,10 @@ public class HotelServiceIMPL implements HotelService {
         hotelEntity1.setHotel_category(hotelDTO.getHotel_category());
         hotelEntity1.setLocation(hotelDTO.getLocation());
         hotelEntity1.setEmail(hotelDTO.getEmail());
-        hotelEntity1.setContact_number(hotelDTO.getContact_number());
+        hotelEntity1.setContact_number1(hotelDTO.getContact_number1());
+        hotelEntity1.setContact_number2(hotelDTO.getContact_number2());
+        hotelEntity1.setHotelFee(hotelDTO.getHotelFee());
+        hotelEntity1.setRemark(hotelDTO.getRemark());
 
         hotelRepo.save(hotelEntity1);
 //        hotelEntity.get().setHotel_name(hotelDTO.getHotel_name());

@@ -26,21 +26,30 @@ public class HotelEntity implements SuperEntity{
 
     private  String email;
     @Column(nullable = false)
-    private  String contact_number;
+    private  String contact_number1;
+    @Column(nullable = false)
+    private  String contact_number2;
+    @Column(nullable = false)
+    private  double hotelFee;
+    @Column(nullable = false)
+    private  String remark;
 
-    @OneToMany(mappedBy = "hotelEntity") // Assuming 'hotel' is the property in HotelImageEntity that maps back to this entity
+    @OneToMany(mappedBy = "hotelEntity")
     private List<HotelImageEntity> images;
 
     public HotelEntity(String hotel_id) {
         this.hotel_id = hotel_id;
     }
 
-    public HotelEntity(String hotel_id, String hotel_name, String hotel_category, String location, String email, String contact_number) {
+    public HotelEntity(String hotel_id, String hotel_name, String hotel_category, String location, String email, String contact_number1, String contact_number2, double hotelFee, String remark) {
         this.hotel_id = hotel_id;
         this.hotel_name = hotel_name;
         this.hotel_category = hotel_category;
         this.location = location;
         this.email = email;
-        this.contact_number = contact_number;
+        this.contact_number1 = contact_number1;
+        this.contact_number2 = contact_number2;
+        this.hotelFee = hotelFee;
+        this.remark = remark;
     }
 }
