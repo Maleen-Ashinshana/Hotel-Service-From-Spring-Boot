@@ -26,11 +26,11 @@ public class HotelDTO {
     @NotNull(message = "Hotel Email cannot be empty")
     private  String email;
     @NotNull(message = "Hotel Contact Number cannot be empty")
-    private  int contact_number;
+    private  String contact_number;
 
 
 
-    public HotelDTO(String hotel_id, String hotel_name, String hotel_category, String location, String email, int contact_number) {
+    public HotelDTO(String hotel_id, String hotel_name, String hotel_category, String location, String email, String contact_number) {
         this.hotel_id = hotel_id;
         this.hotel_name = hotel_name;
         this.hotel_category = hotel_category;

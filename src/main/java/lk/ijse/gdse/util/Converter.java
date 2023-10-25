@@ -8,6 +8,8 @@ import lk.ijse.gdse.entity.HotelImageEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
+
 @Component
 public class Converter {
     private final ModelMapper modelMapper;
@@ -24,7 +26,10 @@ public class Converter {
     }
 
     public HotelImageEntity toHotelImageEntity(HotelImageDTO imageDTO){
-        return modelMapper.map(imageDTO, HotelImageEntity.class);
+        HotelImageEntity map = modelMapper.map(imageDTO, HotelImageEntity.class);
+        map.setHotel_images(Base64.getEncoder().encodeToString(imageDTO.getHotel_images()));
+        return map;
+        /*return modelMapper.map(imageDTO, HotelImageEntity.class);*/
     }
     public  HotelImageDTO toHotelImageDTO(HotelImageEntity imageEntity){
         return modelMapper.map(imageEntity, HotelImageDTO.class);

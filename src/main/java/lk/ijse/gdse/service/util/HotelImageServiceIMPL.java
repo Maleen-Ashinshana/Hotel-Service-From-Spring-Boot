@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,9 +64,10 @@ public class HotelImageServiceIMPL implements HotelImageService {
 
        }
        HotelImageEntity hotelImageEntity=imageEntity.get();
-       hotelImageEntity.setFront_image(imageDTO.getFront_image());
+       hotelImageEntity.setHotel_images(Arrays.toString(imageDTO.getHotel_images()));
+/*       hotelImageEntity.setFront_image(imageDTO.getFront_image());
        hotelImageEntity.setInside_image(imageDTO.getInside_image());
-       hotelImageEntity.setBack_image(imageDTO.getBack_image());
+       hotelImageEntity.setBack_image(imageDTO.getBack_image());*/
        hotelImageRepo.save(hotelImageEntity);
     }
 

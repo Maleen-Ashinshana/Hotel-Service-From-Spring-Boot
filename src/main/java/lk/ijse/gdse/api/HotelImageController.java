@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -32,27 +33,50 @@ public class HotelImageController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/{hotel_id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveHotelImage(
-           /* @RequestParam HotelImageDTO imageDTO,*/
-            @RequestPart byte[] front,
-            @RequestPart byte[] back,
-            @RequestPart byte[] inside,
 
+            @RequestPart List<MultipartFile> hotel_image,
             @PathVariable String hotel_id){
+        List<byte[]> hotelImagesData = new ArrayList<>();
 
-            String frontImg= Base64.getEncoder().encodeToString(front);
-            String insideImg= Base64.getEncoder().encodeToString(inside);
-            String backImg= Base64.getEncoder().encodeToString(back);
+        /*String VImag= Base64.getEncoder().encodeToString(vehicle_image);*/
+        for (MultipartFile image : hotel_image) {
+            HotelImageDTO imageDTO=new HotelImageDTO();
+            try {
+                imageDTO.setHotel_images(image.getBytes());
+               /* byte[] imageData = image.getBytes();
+                vehicleImagesData.add(imageData);*/
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String hotelId = hotelImageService.saveImage(hotel_id, imageDTO).getHotel_id();
 
-            HotelImageDTO imageDTO1=new HotelImageDTO();
+        }
+        return "Saved";
+            /*List<byte[]> bytes=new ArrayList<>();
+
+            for(MultipartFile file:hotel_image){
+       HotelImageDTO imageDTO=new HotelImageDTO();
+                try {
+                    imageDTO.setHotel_images(file.getBytes());
+                   *//* byte[] imageData=file.getBytes();*//*
+                    *//*bytes.add(imageData);*//*
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String imageId = hotelImageService.saveImage(hotel_id, imageDTO).getImage_id();
+
+            }
+            return "Saved";*/
+            //return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
+
+     /*       HotelImageDTO imageDTO1=new HotelImageDTO();
 //            imageDTO1.setHotelEntity(imageDTO);
-            imageDTO1.setFront_image(frontImg);
-            imageDTO1.setInside_image(insideImg);
-            imageDTO1.setBack_image(backImg);
-
+            imageDTO1.setHotel_images(bytes.toString());
         System.out.println(imageDTO1.getImage_id()+"+*****");
 //            imageDTO1.setHotelEntity(hotel_id);
+        System.out.println(vehicle_image);*/
 
-            return hotelImageService.saveImage(hotel_id,imageDTO1).getImage_id();
+            /*return hotelImageService.saveImage(hotel_id,imageDTO1).getImage_id();*/
 
     }
     @GetMapping(value = "/{image_id}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,23 +92,43 @@ public class HotelImageController {
 
     @PatchMapping("/{image_id}")
     public String updateHotelImage(
-            @RequestPart byte[] front,
-            @RequestPart byte[] back,
-            @RequestPart byte[] inside,
+            @RequestPart List<MultipartFile> hotel_image,
 
             @PathVariable String image_id){
-        String frontImg= Base64.getEncoder().encodeToString(front);
-        String insideImg= Base64.getEncoder().encodeToString(inside);
-        String backImg= Base64.getEncoder().encodeToString(back);
+        List<byte[]> hotelImagesData = new ArrayList<>();
+
+        /*String VImag= Base64.getEncoder().encodeToString(vehicle_image);*/
+        for (MultipartFile image : hotel_image) {
+            HotelImageDTO imageDTO=new HotelImageDTO();
+            try {
+                imageDTO.setHotel_images(image.getBytes());
+               /* byte[] imageData = image.getBytes();
+                vehicleImagesData.add(imageData);*/
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            hotelImageService.updateHotelImage(image_id,imageDTO);
+
+        }
+        return "Updated";
+
+        /*List<byte[]> bytes=new ArrayList<>();
+        for(MultipartFile file:vehicle_image){
+            try {
+                byte[] imageData=file.getBytes();
+                bytes.add(imageData);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         HotelImageDTO imageDTO1=new HotelImageDTO();
+        imageDTO1.setHotel_images(vehicle_image.toString().getBytes());
 //            imageDTO1.setHotelEntity(imageDTO);
-        imageDTO1.setFront_image(frontImg);
-        imageDTO1.setInside_image(insideImg);
-        imageDTO1.setBack_image(backImg);
+
 
         hotelImageService.updateHotelImage(image_id,imageDTO1);
-        return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
+        return String.valueOf(new ResponseEntity<>(HttpStatus.OK));*/
     }
     @GetMapping
     public ResponseEntity<List<HotelImageDTO>> getAllHotelImage() {

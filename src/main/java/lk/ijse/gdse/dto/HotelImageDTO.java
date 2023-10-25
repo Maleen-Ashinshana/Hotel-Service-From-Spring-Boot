@@ -6,21 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
 public class HotelImageDTO {
     @Null(message = "Hotel ID will auto generate")
     private String image_id;
-    private String front_image;
-    private String back_image;
-    private String inside_image;
+    private byte[] hotel_images;
     private String hotel_id;
 
-    public HotelImageDTO(String image_id, String front_image, String back_image, String inside_image) {
+    public HotelImageDTO(String image_id, byte[] hotel_images) {
         this.image_id = image_id;
-        this.front_image = front_image;
-        this.back_image = back_image;
-        this.inside_image = inside_image;
+        this.hotel_images = hotel_images;
     }
 }
