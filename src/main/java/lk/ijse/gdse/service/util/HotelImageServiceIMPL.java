@@ -51,6 +51,8 @@ public class HotelImageServiceIMPL implements HotelImageService {
         HotelImageEntity hotelImageEntity = hotelImageRepo.findById(image_id).orElseThrow(()->new NotFoundException("Hotel Image Id Not Found "+image_id));
         HotelImageDTO hotelImageDTO = convert.toHotelImageDTO(hotelImageEntity);
         hotelImageDTO.setHotel_id(hotelImageEntity.getHotelEntity().getHotel_id());
+        hotelImageDTO.setHotel_images(hotelImageEntity.getHotel_images().getBytes());
+        System.out.println(hotelImageDTO.getHotel_images()+"lakaakakakak");
         return hotelImageDTO;
 
 //        return convert.toHotelImageDTO(hotelImageRepo.findById(image_id).get());
