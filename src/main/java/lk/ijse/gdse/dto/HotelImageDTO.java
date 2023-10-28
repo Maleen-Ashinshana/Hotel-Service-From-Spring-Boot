@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class HotelImageDTO {
@@ -19,4 +19,6 @@ public class HotelImageDTO {
         this.image_id = image_id;
         this.hotel_images = hotel_images;
     }
+
+
 }

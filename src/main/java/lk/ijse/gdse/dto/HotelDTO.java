@@ -8,8 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
-
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
@@ -34,6 +35,7 @@ public class HotelDTO {
     @NotNull(message = "Hotel Remark cannot be empty")
     private  String remark;
 
+    private List<HotelImageDTO> imageDTOS=new ArrayList<>();
 
     public HotelDTO(String hotel_id, String hotel_name, String hotel_category, String location, String email, String contact_number1, String contact_number2, double hotelFee, String remark) {
         this.hotel_id = hotel_id;

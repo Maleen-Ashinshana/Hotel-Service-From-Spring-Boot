@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
+import java.util.List;
 
 @Component
 public class Converter {
@@ -22,7 +23,17 @@ public class Converter {
         return modelMapper.map(hotelDTO, HotelEntity.class);
     }
     public  HotelDTO toHotelDTO(HotelEntity hotelEntity){
-        return modelMapper.map(hotelEntity, HotelDTO.class);
+        List<HotelImageEntity> imageEntities=hotelEntity.getImages();
+        HotelDTO map = modelMapper.map(hotelEntity, HotelDTO.class);
+        if (imageEntities!=null){
+            map.setImageDTOS(
+                    imageEntities.stream().map(h->new HotelImageDTO(h.getImage_id(),
+                            Base64.getDecoder().decode(h.getHotel_images()),
+                            hotelEntity.getHotel_id())).toList());
+
+        }
+        return map;
+        /*return modelMapper.map(hotelEntity, HotelDTO.class);*/
     }
 
     public HotelImageEntity toHotelImageEntity(HotelImageDTO imageDTO){

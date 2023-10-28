@@ -32,7 +32,7 @@ public class HotelImageController {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/{hotel_id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public String saveHotelImage(
+    public HotelImageDTO  saveHotelImage(
 
             @RequestPart List<MultipartFile> hotel_image,
             @PathVariable String hotel_id){
@@ -48,10 +48,10 @@ public class HotelImageController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String hotelId = hotelImageService.saveImage(hotel_id, imageDTO).getHotel_id();
+            return hotelImageService.saveImage(hotel_id, imageDTO);
 
         }
-        return "Saved";
+        return null ;
             /*List<byte[]> bytes=new ArrayList<>();
 
             for(MultipartFile file:hotel_image){
