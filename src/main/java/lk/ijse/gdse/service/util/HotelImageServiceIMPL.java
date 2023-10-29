@@ -48,6 +48,24 @@ public class HotelImageServiceIMPL implements HotelImageService {
 
     @Override
     public HotelImageDTO getSelectedHotelImage(String image_id) {
+        HotelImageEntity hotelImageEntity = hotelImageRepo.findById(image_id)
+                .orElseThrow(() -> new NotFoundException("Hotel Image ID Not Found: " + image_id));
+
+        HotelImageDTO hotelImageDTO = convert.toHotelImageDTO(hotelImageEntity);
+
+        // Set additional properties as needed
+        hotelImageDTO.setHotel_id(hotelImageEntity.getHotelEntity().getHotel_id());
+
+        // Convert the image to a byte array if it's stored as a byte array in the entity
+        byte[] imageBytes = hotelImageEntity.getHotel_images().getBytes();
+        if (imageBytes != null) {
+            hotelImageDTO.setHotel_images(imageBytes);
+        }
+
+        return hotelImageDTO;
+    }
+
+   /* public HotelImageDTO getSelectedHotelImage(String image_id) {
         HotelImageEntity hotelImageEntity = hotelImageRepo.findById(image_id).orElseThrow(()->new NotFoundException("Hotel Image Id Not Found "+image_id));
         HotelImageDTO hotelImageDTO = convert.toHotelImageDTO(hotelImageEntity);
         hotelImageDTO.setHotel_id(hotelImageEntity.getHotelEntity().getHotel_id());
@@ -56,7 +74,7 @@ public class HotelImageServiceIMPL implements HotelImageService {
         return hotelImageDTO;
 
 //        return convert.toHotelImageDTO(hotelImageRepo.findById(image_id).get());
-    }
+    }*/
 
     @Override
     public void updateHotelImage(String image_id,HotelImageDTO imageDTO) {
@@ -67,20 +85,23 @@ public class HotelImageServiceIMPL implements HotelImageService {
        }
        HotelImageEntity hotelImageEntity=imageEntity.get();
        hotelImageEntity.setHotel_images(Arrays.toString(imageDTO.getHotel_images()));
-/*       hotelImageEntity.setFront_image(imageDTO.getFront_image());
-       hotelImageEntity.setInside_image(imageDTO.getInside_image());
-       hotelImageEntity.setBack_image(imageDTO.getBack_image());*/
        hotelImageRepo.save(hotelImageEntity);
     }
 
     @Override
     public void deleteHotelImage(String image_id) {
-        Optional<HotelImageEntity> byId = hotelImageRepo.findById(image_id);
-        if (!byId.isPresent()){
-            throw new NotFoundException("Hotel ID :" + image_id+ " Not Found");
+        // Check if the hotel image with the given image_id exists
+        Optional<HotelImageEntity> optionalHotelImage = hotelImageRepo.findById(image_id);
+
+        if (optionalHotelImage.isPresent()) {
+            // If the image exists, delete it
+            hotelImageRepo.deleteById(image_id);
+        } else {
+            // If the image does not exist, throw an exception
+            throw new NotFoundException("Hotel Image ID not found: " + image_id);
         }
-        hotelImageRepo.deleteById(image_id);
     }
+
 
     @Override
     public List<HotelImageDTO> gelAllHotelIamges() {
