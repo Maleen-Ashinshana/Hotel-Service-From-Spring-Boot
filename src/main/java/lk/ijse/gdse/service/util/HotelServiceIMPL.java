@@ -37,7 +37,7 @@ public class HotelServiceIMPL implements HotelService {
     @Override
     public HotelDTO getSelectedHotel(String hotel_id) {
         Optional<HotelEntity> byId = hotelRepo.findById(hotel_id);
-        if(!byId.isPresent()){
+        if(byId.isEmpty()){
             throw new NotFoundException("Hotel :" +hotel_id+ " Not Fount");
 
         }
@@ -50,7 +50,7 @@ public class HotelServiceIMPL implements HotelService {
     public void updateHotel(String hotel_id,HotelDTO hotelDTO) {
         Optional<HotelEntity> hotelEntity = hotelRepo.findById(hotel_id);
         System.out.println(hotel_id+"IMPL");
-        if (!hotelEntity.isPresent()) {
+        if (hotelEntity.isEmpty()) {
             throw new NotFoundException("Hotel ID : "+ hotel_id+ " Not Found");
 
         }
@@ -78,7 +78,7 @@ public class HotelServiceIMPL implements HotelService {
     @Override
     public void deleteHotel(String hotel_id) {
         Optional<HotelEntity> byId = hotelRepo.findById(hotel_id);
-        if (!byId.isPresent()){
+        if (byId.isEmpty()){
             throw new NotFoundException("Hotel ID :" + hotel_id+ " Not Found");
         }
         hotelRepo.deleteById(hotel_id);

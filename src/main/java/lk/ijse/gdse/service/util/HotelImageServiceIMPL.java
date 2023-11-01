@@ -79,7 +79,7 @@ public class HotelImageServiceIMPL implements HotelImageService {
     @Override
     public void updateHotelImage(String image_id,HotelImageDTO imageDTO) {
         Optional<HotelImageEntity> imageEntity=hotelImageRepo.findById(image_id);
-       if (!imageEntity.isPresent()){
+       if (imageEntity.isEmpty()){
            throw new NotFoundException("Hotel Image ID :"+ image_id + "Note Found" );
 
        }
