@@ -29,7 +29,9 @@ public class HotelServiceIMPL implements HotelService {
 
     @Override
     public HotelDTO saveHotel(HotelDTO hotelDTO) {
+        System.out.println(hotelDTO.getHotelFee() +"FEEEEEE");
         return convert.toHotelDTO(hotelRepo.save(convert.toHotelEntity(hotelDTO)));
+
         //HotelEntity hotelEntity=convert.toHotelImageEntity(hotelDTO);
         //HotelDTO hotelDTO1=convert.toHotelImageEntity(hotelDTO);
         //return convert.toHotelDTO(hotelRepo.(convert.toHotelEntity(hotelDTO)));

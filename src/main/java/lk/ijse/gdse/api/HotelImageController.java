@@ -30,7 +30,7 @@ public class HotelImageController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/{hotel_id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public List<HotelImageDTO> saveHotelImages(@RequestPart List<MultipartFile> hotel_images, @PathVariable String hotel_id) {
+    /*public List<HotelImageDTO> saveHotelImages(@RequestPart List<MultipartFile> hotel_images, @PathVariable String hotel_id) {
         List<HotelImageDTO> savedImageDTOs = new ArrayList<>();
 
         for (MultipartFile image : hotel_images) {
@@ -46,55 +46,31 @@ public class HotelImageController {
         }
 
         return savedImageDTOs;
-    }
+    }*/
 
-    /*public HotelImageDTO  saveHotelImage(
+    public HotelImageDTO  saveHotelImage(
 
             @RequestPart List<MultipartFile> hotel_image,
             @PathVariable String hotel_id){
         List<byte[]> hotelImagesData = new ArrayList<>();
 
-        *//*String VImag= Base64.getEncoder().encodeToString(vehicle_image);*//*
-        for (MultipartFile image : hotel_image) {
+        /*String VImag= Base64.getEncoder().encodeToString(vehicle_image);*/
+        for (MultipartFile image :hotel_image ) {
             HotelImageDTO imageDTO=new HotelImageDTO();
+
             try {
                 imageDTO.setHotel_images(image.getBytes());
-               *//* byte[] imageData = image.getBytes();
-                vehicleImagesData.add(imageData);*//*
+               /* byte[] imageData = image.getBytes();
+                vehicleImagesData.add(imageData);*/
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return (HotelImageDTO) hotelImageService.saveImages(hotel_id, (List<HotelImageDTO>) imageDTO);
+            return hotelImageService.saveImage(hotel_id, imageDTO);
 
         }
-        return null ;
-            *//*List<byte[]> bytes=new ArrayList<>();
-
-            for(MultipartFile file:hotel_image){
-       HotelImageDTO imageDTO=new HotelImageDTO();
-                try {
-                    imageDTO.setHotel_images(file.getBytes());
-                   *//**//* byte[] imageData=file.getBytes();*//**//*
-                    *//**//*bytes.add(imageData);*//**//*
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                String imageId = hotelImageService.saveImage(hotel_id, imageDTO).getImage_id();
-
-            }
-            return "Saved";*//*
-            //return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
-
-     *//*       HotelImageDTO imageDTO1=new HotelImageDTO();
-//            imageDTO1.setHotelEntity(imageDTO);
-            imageDTO1.setHotel_images(bytes.toString());
-        System.out.println(imageDTO1.getImage_id()+"+*****");
-//            imageDTO1.setHotelEntity(hotel_id);
-        System.out.println(vehicle_image);*//*
-
-            *//*return hotelImageService.saveImage(hotel_id,imageDTO1).getImage_id();*//*
-
-    }*/
+        return null;
+    }
     @GetMapping(value = "/{image_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<HotelImageDTO> getHotel(@Valid @PathVariable String image_id){
         HotelImageDTO hotelImageDTO=hotelImageService.getSelectedHotelImage(image_id);

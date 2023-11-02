@@ -19,9 +19,9 @@ public interface HotelImageService {
 
  //        return convert.toHotelImageDTO(hotelImageRepo.save(convert.toHotelImageEntity(imageDTO)));
      }*/
-    List<HotelImageDTO> saveImages(String hotel_id, List<HotelImageDTO> imageDTOs);
+   /* List<HotelImageDTO> saveImages(String hotel_id, List<HotelImageDTO> imageDTOs);*/
 
-/*    HotelImageDTO saveImage(String hotel_id, HotelImageDTO imageDTO);*/
+    HotelImageDTO saveImage(String hotel_id, HotelImageDTO imageDTO);
     HotelImageDTO getSelectedHotelImage(String image_id);
     void updateHotelImage(String image_id,HotelImageDTO imageDTO);
     void deleteHotelImage(String image_id);
