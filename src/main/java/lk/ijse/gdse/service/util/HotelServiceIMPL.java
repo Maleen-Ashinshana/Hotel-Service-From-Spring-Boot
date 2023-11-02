@@ -2,6 +2,7 @@ package lk.ijse.gdse.service.util;
 
 
 import lk.ijse.gdse.dto.HotelDTO;
+import lk.ijse.gdse.dto.HotelImageDTO;
 import lk.ijse.gdse.entity.HotelEntity;
 import lk.ijse.gdse.exception.NotFoundException;
 import lk.ijse.gdse.repo.HotelRepo;
@@ -33,6 +34,8 @@ public class HotelServiceIMPL implements HotelService {
         //HotelDTO hotelDTO1=convert.toHotelImageEntity(hotelDTO);
         //return convert.toHotelDTO(hotelRepo.(convert.toHotelEntity(hotelDTO)));
     }
+
+
 
     @Override
     public HotelDTO getSelectedHotel(String hotel_id) {
@@ -89,4 +92,6 @@ public class HotelServiceIMPL implements HotelService {
     public List<HotelDTO> gelAllHotels() {
         return hotelRepo.findAll().stream().map(hotel->convert.toHotelDTO(hotel)).collect(Collectors.toList());
     }
+
+
 }

@@ -12,11 +12,11 @@ import lk.ijse.gdse.repo.HotelRepo;
 import lk.ijse.gdse.service.HotelImageService;
 import lk.ijse.gdse.util.Converter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +33,8 @@ public class HotelImageServiceIMPL implements HotelImageService {
     private  final HotelRepo hotelRepo;
 
 
-    @Override
-    public HotelImageDTO saveImage(String hotel_id, HotelImageDTO imageDTO) {
+   /* @Override*/
+    /*public HotelImageDTO saveImage(String hotel_id, HotelImageDTO imageDTO) {
         HotelEntity hotelEntity = hotelRepo.findById(hotel_id).orElseThrow();
         HotelImageEntity hotelImageEntity = convert.toHotelImageEntity(imageDTO);
         hotelImageEntity.setHotelEntity(hotelEntity);
@@ -44,7 +44,28 @@ public class HotelImageServiceIMPL implements HotelImageService {
 
 
 //        return convert.toHotelImageDTO(hotelImageRepo.save(convert.toHotelImageEntity(imageDTO)));
+    }*/
+   @Override
+    public List<HotelImageDTO> saveImages(String hotel_id, List<HotelImageDTO> imageDTOs) {
+        HotelEntity hotelEntity = hotelRepo.findById(hotel_id).orElseThrow();
+        List<HotelImageDTO> savedImageDTOs = new ArrayList<>();
+
+        for (HotelImageDTO imageDTO : imageDTOs) {
+            HotelImageEntity hotelImageEntity = convert.toHotelImageEntity(imageDTO);
+            hotelImageEntity.setHotelEntity(hotelEntity);
+            HotelImageEntity savedHotelImageEntity = hotelImageRepo.save(hotelImageEntity);
+            savedImageDTOs.add(convert.toHotelImageDTO(savedHotelImageEntity));
+        }
+
+        System.out.println(savedImageDTOs);
+        return savedImageDTOs;
     }
+
+
+   /* @Override
+    public HotelImageDTO saveImage(String hotel_id, HotelImageDTO imageDTO) {
+        return null;
+    }*/
 
     @Override
     public HotelImageDTO getSelectedHotelImage(String image_id) {
