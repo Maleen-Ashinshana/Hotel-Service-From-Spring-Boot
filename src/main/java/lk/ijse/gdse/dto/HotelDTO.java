@@ -1,8 +1,6 @@
 package lk.ijse.gdse.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,19 +16,22 @@ public class HotelDTO {
     @Null(message = "Hotel ID will auto generate")
     private String hotel_id;
     @NotNull(message = "Hotel name cannot be empty")
-    @Pattern(regexp = "[A-Za-z ]+")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "Invalid hotel name format")
     private  String hotel_name;
     @NotNull(message = "Hotel Category cannot be empty")
     private  String hotel_category;
     @NotNull(message = "Hotel Location cannot be empty")
     private  String location;
     @NotNull(message = "Hotel Email cannot be empty")
+    @Email(message = "Invalid email format")
     private  String email;
     @NotNull(message = "Hotel Contact Number1 cannot be empty")
+    @Size( max = 15, message = "Contact number 1 should be between 10characters")
     private  String contact_number1;
-    @NotNull(message = "Hotel Contact Number2 cannot be empty")
+    @NotNull(message = "Contact number 2 cannot be empty")
+    @Size( max = 15, message = "Contact number 2 should be between 10characters")
     private  String contact_number2;
-    @NotNull(message = "Hotel HotelFee cannot be empty")
+    @PositiveOrZero(message = "Hotel fee cannot be negative")
     private  double hotelFee;
     @NotNull(message = "Hotel Remark cannot be empty")
     private  String remark;
